@@ -51,7 +51,7 @@ import "rxjs/add/operator/map";
 </div>`
 })
 export class AppComponent {
-    appName: string = "Angular 2 Express";
+    appName: string = "Kelsi's Finance App";
     user: any = {
         password: "angualr2express",
         username: "john"
