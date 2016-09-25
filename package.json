@@ -31,7 +31,8 @@
     "jsonwebtoken": "^5.7.0",
     "serve-favicon": "~2.3.0",
     "typescript": "^2.0.2",
-    "typings": "^1.3.2"
+    "typings": "^1.3.2",
+    "mongodb": "2.2.10"
   },
   "devDependencies": {
     "@angular/common": "2.0.0",
