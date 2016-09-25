@@ -1,6 +1,6 @@
-## Angular2 Express Starter
+## Simple Web App to Manage Finances
 
-Demo: https://express-angular2.herokuapp.com/
+Site is hosted here: http://kelsi-finance.herokuapp.com/
 
 - Angular 2 ( 2.0 final realase )
 - Express
