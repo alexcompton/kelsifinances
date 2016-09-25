@@ -8,6 +8,7 @@ import { ApiService } from "../../service/api.service";
     declarations: [ /* Declare components and pipes */],
     exports:      [ /* Export them */ ]
 })
+
 export class SharedModule {
 
     static forRoot(): ModuleWithProviders {

@@ -1,6 +1,19 @@
-body {
-	background: #f4f4f4;
+
+/*body {
+	background-image:url(background2.jpg)
+}*/
+
+body { 
+	background: url(background.gif);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center top;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
+
 .center {
 	text-align: center;
 	padding-top: 100px;

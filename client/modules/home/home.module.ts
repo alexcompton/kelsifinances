@@ -4,6 +4,7 @@ import { NgSemanticModule } from "ng-semantic";
 import { CommonModule } from "@angular/common";
 
 import { HomeComponent } from "./home.component";
+import { HomeService } from "./home.service";
 import { routing } from "./home.routing";
 import { SharedModule } from "../shared/shared.module";
 import { ContactModule } from "../contact/contact.module";
@@ -25,6 +26,9 @@ import { ContactModule } from "../contact/contact.module";
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
+    ],
+    providers: [
+        HomeService
     ]
 })
 export class HomeModule { }

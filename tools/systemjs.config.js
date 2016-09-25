@@ -28,7 +28,11 @@ var isPublic = typeof window != "undefined";
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
             'angular2-jwt':               'npm:angular2-jwt/angular2-jwt.js',
             'ng-semantic':                'npm:ng-semantic',
-            'mongodb':                    'npm:mongodb'
+            'mongodb':                    'npm:mongodb',
+            // imported charting tools
+            'd3': 'npm:d3/build/d3.js',
+            'ng2-nvd3': 'npm:ng2-nvd3',
+            'angular2-highcharts': 'npm:angular2-highcharts/dist'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -50,7 +54,16 @@ var isPublic = typeof window != "undefined";
             'ng-semantic': {
                 main: 'ng-semantic',
                 defaultExtension: 'js'
-            }
+            },
+            'ng2-nvd3': {
+                main: 'build/lib/ng2-nvd3.js',
+                defaultExtension: 'js'
+            },
+            'angular2-highcharts': {
+                main: 'index',
+                format: 'cjs',
+                defaultExtension: 'js'
+            },
         }
     });
 })(this);

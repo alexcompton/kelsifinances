@@ -1,15 +1,72 @@
-<div class="ui container">
-	<sm-segment class="raised">
-		<sm-button class="green" (click)="protected()">Call Protected API</sm-button>
+<!--<sm-segment class="raised">
+</sm-segment>-->
 
-		<sm-message class="negative" *ngIf="error">
-			<message-content>{{error}}</message-content>
-		</sm-message>
+<h3 class="ui header divided">Financial Balance Sheet</h3>
 
-<pre>
-{{ response | json}}
-</pre>
-	</sm-segment>
-</div>
+<table class="ui selectable striped celled table">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Date</th>
+			<th>Checking</th>
+			<th>Savings</th>
+			<th>Paycheck</th>
+			<th>Credit</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let row of balanceTable; let i = index">
+			<td>{{i+1}}</td>
+			<td>{{row.date | date}}</td>
+			<td>{{row.checking | currency:'USD':true:'1.2-2'}}</td>
+			<td>{{row.savings | currency:'USD':true:'1.2-2'}}</td>
+			<td>{{row.paycheck | currency:'USD':true:'1.2-2'}}</td>
+			<td>{{row.credit | currency:'USD':true:'1.2-2'}}</td>
+		</tr>
+	</tbody>
+</table>
 
-<profile></profile>
+<br/>
+
+
+<!--<table class="ui selectable striped celled table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Status</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>John</td>
+			<td>No Action</td>
+			<td>None</td>
+		</tr>
+		<tr>
+			<td>Jamie</td>
+			<td>Approved</td>
+			<td>Requires call</td>
+		</tr>
+		<tr>
+			<td>Jill</td>
+			<td>Denied</td>
+			<td>None</td>
+		</tr>
+		<tr class="warning">
+			<td>John</td>
+			<td>No Action</td>
+			<td>None</td>
+		</tr>
+		<tr>
+			<td>Jamie</td>
+			<td class="positive">Approved</td>
+			<td class="warning">Requires call</td>
+		</tr>
+		<tr>
+			<td>Jill</td>
+			<td class="negative">Denied</td>
+			<td>None</td>
+		</tr>
+	</tbody>
+</table>-->
