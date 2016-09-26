@@ -55,8 +55,6 @@ export class HomeService {
             balanceTable.push(item);
         }
 
-        console.log(response);
-
         return balanceTable;
     }
 

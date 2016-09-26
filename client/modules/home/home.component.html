@@ -3,7 +3,7 @@
 
 <h3 class="ui header divided">Financial Balance Sheet</h3>
 
-<table class="ui selectable striped celled table">
+<table class="ui compact selectable celled table">
 	<thead>
 		<tr>
 			<th>#</th>
@@ -12,16 +12,26 @@
 			<th>Savings</th>
 			<th>Paycheck</th>
 			<th>Credit</th>
+			<th>Remove</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let row of balanceTable; let i = index">
 			<td>{{i+1}}</td>
 			<td>{{row.date | date}}</td>
-			<td>{{row.checking | currency:'USD':true:'1.2-2'}}</td>
-			<td>{{row.savings | currency:'USD':true:'1.2-2'}}</td>
-			<td>{{row.paycheck | currency:'USD':true:'1.2-2'}}</td>
-			<td>{{row.credit | currency:'USD':true:'1.2-2'}}</td>
+			<td [ngClass]="getBalanceClass(row.checking)">
+				{{row.checking | currency:'USD':true:'1.2-2'}}
+			</td>
+			<td [ngClass]="getBalanceClass(row.savings)">
+				{{row.savings | currency:'USD':true:'1.2-2'}}
+			</td>
+			<td [ngClass]="getPaycheckClass(row.paycheck)">
+				{{row.paycheck | currency:'USD':true:'1.2-2'}}
+			</td>
+			<td [ngClass]="getCreditClass(row.credit)">
+				{{row.credit | currency:'USD':true:'1.2-2'}}
+			</td>
+			<td><i class="large red remove icon"></i></td>
 		</tr>
 	</tbody>
 </table>

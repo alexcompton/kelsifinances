@@ -48,4 +48,21 @@ export class HomeComponent implements OnInit {
                 }
             );
     }
+
+    getPaycheckClass(paycheck: number): any{
+        let gotPaid: boolean = (paycheck > 500) ? true : false;
+        return {positive: gotPaid, warning: !gotPaid};
+    }
+
+    getBalanceClass(balance: number): any{
+        let lowBal: boolean = (balance < 1000) ? true : false;
+        let highBal: boolean = (balance > 2000) ? true : false;
+        return {positive: highBal, warning: lowBal};
+    }
+    
+    getCreditClass(credit: number): any{
+        let lowBal: boolean = (credit < 200) ? true : false;
+        let highBal: boolean = (credit > 500) ? true : false;
+        return {positive: lowBal, warning: highBal};
+    }
 }
