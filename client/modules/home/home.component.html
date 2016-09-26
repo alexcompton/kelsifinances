@@ -1,82 +1,161 @@
-<!--<sm-segment class="raised">
-</sm-segment>-->
+<div class="ui card">
+	<div class="content">
+		<div class="header">Add New Item</div>
+	</div>
+</div>
 
-<h3 class="ui header divided">Financial Balance Sheet</h3>
+<div class="ui form">
+	<div class="fields">
 
-<table class="ui compact selectable celled table">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>Date</th>
-			<th>Checking</th>
-			<th>Savings</th>
-			<th>Paycheck</th>
-			<th>Credit</th>
-			<th>Remove</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let row of balanceTable; let i = index">
-			<td>{{i+1}}</td>
-			<td>{{row.date | date}}</td>
-			<td [ngClass]="getBalanceClass(row.checking)">
-				{{row.checking | currency:'USD':true:'1.2-2'}}
-			</td>
-			<td [ngClass]="getBalanceClass(row.savings)">
-				{{row.savings | currency:'USD':true:'1.2-2'}}
-			</td>
-			<td [ngClass]="getPaycheckClass(row.paycheck)">
-				{{row.paycheck | currency:'USD':true:'1.2-2'}}
-			</td>
-			<td [ngClass]="getCreditClass(row.credit)">
-				{{row.credit | currency:'USD':true:'1.2-2'}}
-			</td>
-			<td><i class="large red remove icon"></i></td>
-		</tr>
-	</tbody>
-</table>
+		<div class="field">
+			<div class="ui labeled input">
+				<div class="ui label basic">Date:</div>
+				<input type="date" placeholder="mysite.com">
+			</div>
+		</div>
+
+		<div class="field">
+			<div class="ui right labeled input">
+				<div class="ui basic label">Checking Balance: $</div>
+				<input type="number" placeholder="Amount">
+				<div class="ui basic label">.00</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<div class="ui right labeled input">
+				<div class="ui basic label">Savings Balance: $</div>
+				<input type="number" placeholder="Amount">
+				<div class="ui basic label">.00</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="fields">
+		<div class="field">
+			<div class="ui right labeled input">
+				<div class="ui basic label">Paycheck Ammount: $</div>
+				<input type="number" placeholder="Amount">
+				<div class="ui basic label">.00</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<div class="ui right labeled input">
+				<div class="ui basic label">Credit Card Balance: $</div>
+				<input type="number" placeholder="Amount">
+				<div class="ui basic label">.00</div>
+			</div>
+		</div>
+
+		<div>
+			<button class="ui button positive right floated">
+				<i class="add circle icon"></i> Add Entry 
+			</button>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="ui divider"></div>
+
+<div class="ui card">
+	<div class="content">
+		<div class="header">Financial Balance Sheet</div>
+	</div>
+</div>
+
+<div>
+	<table class="ui compact selectable striped celled table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Date</th>
+				<th>Checking</th>
+				<th>Savings</th>
+				<th>Paycheck</th>
+				<th>Credit</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let row of balanceTable; let i = index">
+				<td>{{i+1}}</td>
+				<td>{{row.date | date}}</td>
+
+				<td [ngSwitch]="getCheckingLayout(row.checking)">
+					<div *ngSwitchCase="'positive'">
+						{{row.checking | currency:'USD':true:'1.2-2'}}
+						<i class="large green money icon"></i>
+					</div>
+					<div *ngSwitchCase="'warning'">
+						{{row.checking | currency:'USD':true:'1.2-2'}}
+						<i class="large red warning circle icon"></i>
+					</div>
+					<div *ngSwitchDefault>
+						{{row.checking | currency:'USD':true:'1.2-2'}}
+					</div>
+				</td>
+
+				<td [ngSwitch]="getSavingsLayout(row.savings)">
+					<div *ngSwitchCase="'positive'">
+						{{row.savings | currency:'USD':true:'1.2-2'}}
+						<i class="large green money icon"></i>
+					</div>
+					<div *ngSwitchCase="'warning'">
+						{{row.savings | currency:'USD':true:'1.2-2'}}
+						<i class="large red warning circle icon"></i>
+					</div>
+					<div *ngSwitchDefault>
+						{{row.savings | currency:'USD':true:'1.2-2'}}
+					</div>
+				</td>
+
+				<td [ngSwitch]="getPaycheckLayout(row.paycheck)">
+					<div *ngSwitchCase="'positive'">
+						{{row.paycheck | currency:'USD':true:'1.2-2'}}
+						<i class="large green money icon"></i>
+					</div>
+					<div *ngSwitchCase="'warning'">
+						{{row.paycheck | currency:'USD':true:'1.2-2'}}
+						<i class="large red warning circle icon"></i>
+					</div>
+					<div *ngSwitchDefault>
+						{{row.paycheck | currency:'USD':true:'1.2-2'}}
+					</div>
+				</td>
+
+				<td [ngSwitch]="getCreditLayout(row.credit)">
+					<div *ngSwitchCase="'positive'">
+						{{row.credit | currency:'USD':true:'1.2-2'}}
+						<i class="large green money icon"></i>
+					</div>
+					<div *ngSwitchCase="'warning'">
+						{{row.credit | currency:'USD':true:'1.2-2'}}
+						<i class="large red warning circle icon"></i>
+					</div>
+					<div *ngSwitchDefault>
+						{{row.credit | currency:'USD':true:'1.2-2'}}
+					</div>
+				</td>
+
+				<td>
+					<button class="ui button basic blue small">
+						<i class="edit icon"></i> Edit
+					</button>
+				</td>
+				
+				<td>
+					<button class="ui button basic red small">
+						<i class="remove icon"></i> Remove 
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
 
 <br/>
-
-
-<!--<table class="ui selectable striped celled table">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Status</th>
-			<th>Notes</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>John</td>
-			<td>No Action</td>
-			<td>None</td>
-		</tr>
-		<tr>
-			<td>Jamie</td>
-			<td>Approved</td>
-			<td>Requires call</td>
-		</tr>
-		<tr>
-			<td>Jill</td>
-			<td>Denied</td>
-			<td>None</td>
-		</tr>
-		<tr class="warning">
-			<td>John</td>
-			<td>No Action</td>
-			<td>None</td>
-		</tr>
-		<tr>
-			<td>Jamie</td>
-			<td class="positive">Approved</td>
-			<td class="warning">Requires call</td>
-		</tr>
-		<tr>
-			<td>Jill</td>
-			<td class="negative">Denied</td>
-			<td>None</td>
-		</tr>
-	</tbody>
-</table>-->

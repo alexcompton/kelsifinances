@@ -27,15 +27,15 @@ export class HomeComponent implements OnInit {
 
     private balanceTable: Array<BalanceItem>;
 
-    constructor(private homeService: HomeService){        
+    constructor(private homeService: HomeService) {
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.balanceTable = new Array<BalanceItem>();
         this.getBalanceTable();
     }
 
-    getBalanceTable(){
+    getBalanceTable() {
         this.homeService.getTableData()
             .subscribe(
                 balanceTable => {
@@ -49,20 +49,41 @@ export class HomeComponent implements OnInit {
             );
     }
 
-    getPaycheckClass(paycheck: number): any{
-        let gotPaid: boolean = (paycheck > 500) ? true : false;
-        return {positive: gotPaid, warning: !gotPaid};
+    getCheckingLayout(checking: number): string {
+        if (checking > 1500) {
+            return 'positive';
+        } else if (checking < 500) {
+            return 'warning';
+        } else {
+            return '';
+        }
     }
 
-    getBalanceClass(balance: number): any{
-        let lowBal: boolean = (balance < 1000) ? true : false;
-        let highBal: boolean = (balance > 2000) ? true : false;
-        return {positive: highBal, warning: lowBal};
+    getSavingsLayout(savings: number): string {
+        if (savings > 2000) {
+            return 'positive';
+        } else if (savings < 1000) {
+            return 'warning';
+        } else {
+            return '';
+        }
     }
     
-    getCreditClass(credit: number): any{
-        let lowBal: boolean = (credit < 200) ? true : false;
-        let highBal: boolean = (credit > 500) ? true : false;
-        return {positive: lowBal, warning: highBal};
+    getCreditLayout(credit: number): string {
+        if (credit < 200) {
+            return 'positive';
+        } else if (credit > 500) {
+            return 'warning';
+        } else {
+            return '';
+        }
+    }
+    
+    getPaycheckLayout(paycheck: number): string {
+        if (paycheck > 1000) {
+            return 'positive';
+        } else {
+            return '';
+        }
     }
 }
