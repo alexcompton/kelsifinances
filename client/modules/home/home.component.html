@@ -10,14 +10,14 @@
 		<div class="field">
 			<div class="ui labeled input">
 				<div class="ui label basic">Date:</div>
-				<input type="date" placeholder="mysite.com">
+				<input type="date" [(ngModel)]="balanceItem.date">
 			</div>
 		</div>
 
 		<div class="field">
 			<div class="ui right labeled input">
 				<div class="ui basic label">Checking Balance: $</div>
-				<input type="number" placeholder="Amount">
+				<input type="number" placeholder="Amount" [(ngModel)]="balanceItem.checking">
 				<div class="ui basic label">.00</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 		<div class="field">
 			<div class="ui right labeled input">
 				<div class="ui basic label">Savings Balance: $</div>
-				<input type="number" placeholder="Amount">
+				<input type="number" placeholder="Amount" [(ngModel)]="balanceItem.savings">
 				<div class="ui basic label">.00</div>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 		<div class="field">
 			<div class="ui right labeled input">
 				<div class="ui basic label">Paycheck Ammount: $</div>
-				<input type="number" placeholder="Amount">
+				<input type="number" placeholder="Amount" [(ngModel)]="balanceItem.paycheck">
 				<div class="ui basic label">.00</div>
 			</div>
 		</div>
@@ -43,13 +43,13 @@
 		<div class="field">
 			<div class="ui right labeled input">
 				<div class="ui basic label">Credit Card Balance: $</div>
-				<input type="number" placeholder="Amount">
+				<input type="number" placeholder="Amount" [(ngModel)]="balanceItem.credit">
 				<div class="ui basic label">.00</div>
 			</div>
 		</div>
 
 		<div>
-			<button class="ui button positive right floated">
+			<button class="ui button positive right floated" (click)="addBalanceItem()">
 				<i class="add circle icon"></i> Add Entry 
 			</button>
 		</div>
@@ -142,13 +142,13 @@
 				</td>
 
 				<td>
-					<button class="ui button basic blue small">
+					<button class="ui button basic blue small" (click)="editBalanceItem(i)">
 						<i class="edit icon"></i> Edit
 					</button>
 				</td>
 				
 				<td>
-					<button class="ui button basic red small">
+					<button class="ui button basic red small" (click)="removeBalanceItem(i)">
 						<i class="remove icon"></i> Remove 
 					</button>
 				</td>

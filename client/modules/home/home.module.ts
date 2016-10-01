@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { NgSemanticModule } from "ng-semantic";
 import { CommonModule } from "@angular/common";
+import { FormsModule }   from '@angular/forms';
 
 import { HomeComponent } from "./home.component";
 import { HomeService } from "./home.service";
@@ -16,7 +17,8 @@ import { ContactModule } from "../contact/contact.module";
         routing,
         SharedModule.forRoot(),
         NgSemanticModule,
-        ContactModule
+        ContactModule,
+        FormsModule
     ],
     declarations: [
         HomeComponent

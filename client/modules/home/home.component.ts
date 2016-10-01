@@ -26,13 +26,55 @@ export class HomeComponent implements OnInit {
     // }
 
     private balanceTable: Array<BalanceItem>;
+    private balanceItem: BalanceItem;
 
     constructor(private homeService: HomeService) {
     }
 
     ngOnInit() {
+        this.balanceItem = new BalanceItem();
         this.balanceTable = new Array<BalanceItem>();
         this.getBalanceTable();
+    }
+
+    addBalanceItem() {
+        this.homeService.addBalanceItem(this.balanceItem)
+            .subscribe(
+                success => {
+                    let str: string = (success) ? 
+                        "Item successfully inserted." :
+                        "Item insert failed.";
+                    alert(str);
+                    this.getBalanceTable();
+                },
+                error => {
+                    let errorMessage: string = <any>error;
+                    alert('Error adding item:\n\n'
+                        + errorMessage);
+                }
+            );        
+    }
+
+    editBalanceItem(index: number){
+        alert("not implemented yet!");
+    }
+
+    removeBalanceItem(index: number){
+        this.homeService.removeBalanceItem(this.balanceTable[index].id)
+            .subscribe(
+                success => {
+                    let str: string = (success) ? 
+                        "Item successfully removed." :
+                        "Item delete failed.";
+                    alert(str);
+                    this.getBalanceTable();
+                },
+                error => {
+                    let errorMessage: string = <any>error;
+                    alert('Error removing item:\n\n'
+                        + errorMessage);
+                }
+            ); 
     }
 
     getBalanceTable() {
