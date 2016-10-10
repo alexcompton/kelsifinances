@@ -56,7 +56,56 @@
 	</div>
 </div>
 
+<div class="ui modal" [ngClass]="{'active': isModalActive}">
+	<div class="header">Balance for: {{modalBalanceItem.date | date}}</div>
+	<div class="content">
 
+		<!--form inside of the modal-->
+		<div class="ui form">
+			<div class="fields">
+
+				<div class="field">
+					<div class="ui right labeled input">
+						<div class="ui basic label">Checking Balance: $</div>
+						<input type="number" placeholder="Amount" [(ngModel)]="modalBalanceItem.checking">
+						<div class="ui basic label">.00</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="ui right labeled input">
+						<div class="ui basic label">Savings Balance: $</div>
+						<input type="number" placeholder="Amount" [(ngModel)]="modalBalanceItem.savings">
+						<div class="ui basic label">.00</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="fields">
+				<div class="field">
+					<div class="ui right labeled input">
+						<div class="ui basic label">Paycheck Ammount: $</div>
+						<input type="number" placeholder="Amount" [(ngModel)]="modalBalanceItem.paycheck">
+						<div class="ui basic label">.00</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="ui right labeled input">
+						<div class="ui basic label">Credit Card Balance: $</div>
+						<input type="number" placeholder="Amount" [(ngModel)]="modalBalanceItem.credit">
+						<div class="ui basic label">.00</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="actions">
+		<div class="ui blue button" (click)='updateBalanceItem()'>Approve</div>
+		<div class="ui red button" (click)='hideModal()'>Cancel</div>
+	</div>
+</div>
 
 <div class="ui divider"></div>
 
@@ -142,11 +191,11 @@
 				</td>
 
 				<td>
-					<button class="ui button basic blue small" (click)="editBalanceItem(i)">
+					<button class="ui button basic blue small" (click)="showModal(i)">
 						<i class="edit icon"></i> Edit
 					</button>
 				</td>
-				
+
 				<td>
 					<button class="ui button basic red small" (click)="removeBalanceItem(i)">
 						<i class="remove icon"></i> Remove 
@@ -157,5 +206,5 @@
 	</table>
 </div>
 
-
 <br/>
+

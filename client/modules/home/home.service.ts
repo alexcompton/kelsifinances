@@ -53,6 +53,26 @@ export class HomeService {
             .catch(this.handleError);
     }
 
+    updateBalanceItem(balanceItem: BalanceItem): Observable<boolean> {
+
+        let date: Date = new Date(balanceItem.date);
+        
+        let mongoUrl: string = this.updateBalanceItemUrl(balanceItem.id);
+        let header = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: header });
+        let body: any = {
+            paycheck : balanceItem.paycheck.toFixed(2),
+            savingsbal : balanceItem.savings.toFixed(2),
+            checkingbal : balanceItem.checking.toFixed(2),
+            creditcardbal : balanceItem.credit.toFixed(2),
+            date : {"$date": date.toISOString()}
+        };
+        
+        return this.http.put(mongoUrl, body, options)
+            .map(this.extractCrudResponse)
+            .catch(this.handleError);
+    }
+
     private getTableURL(): string {
 
         let database: string = "kelsi-finance";
@@ -63,6 +83,20 @@ export class HomeService {
             '?s={date:-1}&apiKey=6xLMCqJpdzLNq-4vayoibe5PIljX6LiO'
         );
 
+        return mongoUrl;
+    }
+
+    private updateBalanceItemUrl(id: string): string {
+
+        let database: string = "kelsi-finance";
+        let collection: string = "bankbalance"
+        let mongoUrl: string = encodeURI(
+            'https://api.mlab.com/api/1/databases/' + database +
+            '/collections/' + collection +
+            '/' + id +
+            '?apiKey=6xLMCqJpdzLNq-4vayoibe5PIljX6LiO'
+        );
+        
         return mongoUrl;
     }
 

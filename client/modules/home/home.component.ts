@@ -25,13 +25,20 @@ export class HomeComponent implements OnInit {
     //             });
     // }
 
+    // balance table 
     private balanceTable: Array<BalanceItem>;
     private balanceItem: BalanceItem;
+
+    // modal for editting
+    private isModalActive: boolean = false;
+    private modalBalanceItem: BalanceItem;
+    private temp: string = '';
 
     constructor(private homeService: HomeService) {
     }
 
     ngOnInit() {
+        this.modalBalanceItem = new BalanceItem();
         this.balanceItem = new BalanceItem();
         this.balanceTable = new Array<BalanceItem>();
         this.getBalanceTable();
@@ -55,8 +62,39 @@ export class HomeComponent implements OnInit {
             );        
     }
 
-    editBalanceItem(index: number){
-        alert("not implemented yet!");
+    hideModal(){
+        this.modalBalanceItem = new BalanceItem();
+        this.isModalActive = false;
+    }
+
+    updateBalanceItem(){
+        this.homeService.updateBalanceItem(this.modalBalanceItem)
+            .subscribe(
+                success => {
+                    this.hideModal();
+                    let str: string = (success) ? 
+                        "Item successfully updated." :
+                        "Item update failed.";
+                    alert(str);
+                    this.getBalanceTable();
+                },
+                error => {
+                    this.hideModal();
+                    let errorMessage: string = <any>error;
+                    alert('Error updating item:\n\n'
+                        + errorMessage);
+                }
+            ); 
+    }
+
+    showModal(index: number){        
+
+        this.modalBalanceItem = new BalanceItem(this.balanceTable[index].date, 
+            Math.floor(Number(this.balanceTable[index].checking)), Math.floor(Number(this.balanceTable[index].savings)), 
+            Math.floor(Number(this.balanceTable[index].paycheck)), Math.floor(Number(this.balanceTable[index].credit)), 
+            this.balanceTable[index].id);
+        
+        this.isModalActive = true;
     }
 
     removeBalanceItem(index: number){
