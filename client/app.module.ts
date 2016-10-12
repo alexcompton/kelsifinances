@@ -9,6 +9,7 @@ import { routing } from "./routes";
 import { HelloComponent } from "./components/shared/hello.component";
 import { ContactModule } from "./modules/contact/contact.module";
 import { HomeModule } from "./modules/home/home.module";
+import { OverviewModule } from "./modules/overview/overview.module";
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { HomeModule } from "./modules/home/home.module";
         NgSemanticModule,
         ContactModule,
         HomeModule,
+        OverviewModule,
         routing
     ],
     providers: [

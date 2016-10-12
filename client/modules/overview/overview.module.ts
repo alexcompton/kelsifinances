@@ -4,14 +4,12 @@ import { NgSemanticModule } from "ng-semantic";
 import { CommonModule } from "@angular/common";
 import { FormsModule }   from '@angular/forms';
 
-import { HomeComponent } from "./home.component";
-import { HomeService } from "./home.service";
-import { routing } from "./home.routing";
+import { OverviewComponent } from "./overview.component";
+import { OverviewService } from "./overview.service";
+import { routing } from "./overview.routing";
 import { SharedModule } from "../shared/shared.module";
 import { ContactModule } from "../contact/contact.module";
-
-// highcharts
-import { ChartModule } from 'angular2-highcharts';
+import { ChartsModule } from '../../charts/charts.module';
 
 @NgModule({
     imports: [
@@ -21,20 +19,20 @@ import { ChartModule } from 'angular2-highcharts';
         SharedModule.forRoot(),
         NgSemanticModule,
         ContactModule,
-        ChartModule,
+        ChartsModule,
         FormsModule
     ],
     declarations: [
-        HomeComponent
+        OverviewComponent
     ],
     bootstrap: [
-        HomeComponent
+        OverviewComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ],
     providers: [
-        HomeService
+        OverviewService
     ]
 })
-export class HomeModule { }
+export class OverviewModule { }
