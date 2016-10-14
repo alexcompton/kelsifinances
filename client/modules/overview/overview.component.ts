@@ -6,6 +6,8 @@ import { OverviewService } from "./overview.service";
 
 // charts
 import { BarChart } from '../../charts/barchart';
+import { LineChart } from '../../charts/linechart';
+import { AreaChart } from '../../charts/Areachart';
 
 @Component({
     selector: "overview",
@@ -15,8 +17,9 @@ import { BarChart } from '../../charts/barchart';
 export class OverviewComponent implements OnInit {
 
     // charts options
-    private balanceChart: BarChart;
-    private creditChart: BarChart;
+    private balanceChart: AreaChart;
+    private creditChart: LineChart;
+    private debtChart: BarChart;
 
     constructor(private overviewService: OverviewService) {
     }
@@ -24,14 +27,15 @@ export class OverviewComponent implements OnInit {
     ngOnInit() {
         this.getBalanceChart();
         this.getCreditChart();
+        this.getDebtChart();
     }
 
     getBalanceChart(){
-        this.balanceChart = new BarChart();
+        this.balanceChart = new AreaChart();
         this.overviewService.getBalanceChart()
             .subscribe(
-                    barChart => {
-                        this.balanceChart = barChart;
+                    areaChart => {
+                        this.balanceChart = areaChart;
                     },
                     error => {
                         let errorMessage: string = <any>error;
@@ -41,12 +45,27 @@ export class OverviewComponent implements OnInit {
                 ); 
     }
 
-    getCreditChart(){
-        this.creditChart = new BarChart();
-        this.overviewService.getCreditChart()
+    getDebtChart(){
+        this.debtChart = new BarChart();
+        this.overviewService.getDebtChart()
             .subscribe(
                     barChart => {
-                        this.creditChart = barChart;
+                        this.debtChart = barChart;
+                    },
+                    error => {
+                        let errorMessage: string = <any>error;
+                        alert('Error retrieving debts:\n\n'
+                            + errorMessage);
+                    }
+                ); 
+    }
+
+    getCreditChart(){
+        this.creditChart = new LineChart();
+        this.overviewService.getCreditChart()
+            .subscribe(
+                    lineChart => {
+                        this.creditChart = lineChart;
                     },
                     error => {
                         let errorMessage: string = <any>error;

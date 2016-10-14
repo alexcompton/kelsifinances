@@ -6,6 +6,8 @@ import { ChartModule } from 'angular2-highcharts';
 
 // charts
 import {BarChartComponent} from './barchart';
+import {LineChartComponent} from './linechart';
+import {AreaChartComponent} from './areachart';
 
 @NgModule({
     imports: [
@@ -13,10 +15,14 @@ import {BarChartComponent} from './barchart';
         ChartModule
     ],
     declarations: [
-        BarChartComponent
+        BarChartComponent,
+        LineChartComponent,
+        AreaChartComponent
     ],
     exports: [        
-        BarChartComponent
+        BarChartComponent,
+        LineChartComponent,
+        AreaChartComponent
     ],
     providers: [
     ]

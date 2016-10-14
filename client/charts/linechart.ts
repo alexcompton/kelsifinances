@@ -1,34 +1,34 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'barchart',
-    template: '<div class="ui segment raised" style="background-color: #f2f7ff;"><chart [options]="barChart"></chart></div>',
+    selector: 'linechart',
+    template: '<div class="ui segment raised" style="background-color: #f2f7ff;"><chart [options]="lineChart"></chart></div>',
     styles: ['chart { display: block; background-image: url("http://www.highcharts.com/samples/graphics/sand.png"); }']
 })
 
-export class BarChartComponent {
-    @Input() barChart: BarChart;
+export class LineChartComponent {
+    @Input() lineChart: LineChart;
 }
 
-export class BarChart {
+export class LineChart {
 
-    public series: Array<BarChart.Series>;
+    public series: Array<LineChart.Series>;
     public colors: string[];
-    public chart: BarChart.Chart;
-    public title: BarChart.Title;
-    public subtitle: BarChart.Subtitle;
-    public xAxis: BarChart.XAxis;
-    public yAxis: BarChart.YAxis;
-    public tooltip: BarChart.Tooltip;
-    public plotOptions: BarChart.PlotOptions;
-    public legend: BarChart.Legend;
-    public credits: BarChart.Credits;
-    public labels: BarChart.Labels;
-    public drilldown: BarChart.Drilldown;
-    public navigation: BarChart.Navigation;
-    public rangeSelector: BarChart.RangeSelector;
-    public navigator: BarChart.Navigator;
-    public scrollbar: BarChart.Scrollbar;
+    public chart: LineChart.Chart;
+    public title: LineChart.Title;
+    public subtitle: LineChart.Subtitle;
+    public xAxis: LineChart.XAxis;
+    public yAxis: LineChart.YAxis;
+    public tooltip: LineChart.Tooltip;
+    public plotOptions: LineChart.PlotOptions;
+    public legend: LineChart.Legend;
+    public credits: LineChart.Credits;
+    public labels: LineChart.Labels;
+    public drilldown: LineChart.Drilldown;
+    public navigation: LineChart.Navigation;
+    public rangeSelector: LineChart.RangeSelector;
+    public navigator: LineChart.Navigator;
+    public scrollbar: LineChart.Scrollbar;
     public legendBackgroundColor: string;
     public background2: string;
     public dataLabelsColor: string;
@@ -66,7 +66,7 @@ export class BarChart {
             '#6688bb',
         ];
 
-        this.chart = new BarChart.Chart();
+        this.chart = new LineChart.Chart();
 
         this.title = {
             text: 'simple chart',
@@ -84,11 +84,14 @@ export class BarChart {
         };
 
         this.xAxis = {
-            categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas'],
             labels: {
                 style: {
                     color: '#6e6e70'
                 }
+            },
+            crosshair: {
+                color: 'lightgrey',
+                width: 1
             },
             tickInterval: 5
         };
@@ -114,6 +117,7 @@ export class BarChart {
             borderWidth: 0,
             headerFormat: '<b>Balance on: {point.x}</b><br/>',
             shared: true,
+            crosshairs: true,
             valuePrefix: '$'
         };
 
@@ -211,7 +215,7 @@ export class BarChart {
     }
 }
 
-export module BarChart {
+export module LineChart {
 
     export class Series {
 
@@ -231,6 +235,7 @@ export module BarChart {
         public resetZoomButton: any;
         public backgroundColor: any;
         public style: any;
+        public zoomType: string;
 
         constructor() {
             this.setDefault();
@@ -238,8 +243,9 @@ export module BarChart {
 
         setDefault() {
 
-            this.type = 'column';
+            this.type = 'line';
             this.plotBorderColor = null;
+            this.zoomType = 'x';
             this.backgroundColor = {
                 linearGradient: { x1: 1, y1: 1, x2: 1, y2: 1 },
                 stops: [
@@ -250,7 +256,17 @@ export module BarChart {
 
             this.resetZoomButton = {
                 theme: {
-                    display: 'none'
+                    fill: 'white',
+                    stroke: 'silver',
+                    r: 0,
+                    states: {
+                        hover: {
+                            fill: '#41739D',
+                            style: {
+                                color: 'white'
+                            }
+                        }
+                    }
                 }
             };
 

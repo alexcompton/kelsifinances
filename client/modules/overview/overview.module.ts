@@ -35,4 +35,5 @@ import { ChartsModule } from '../../charts/charts.module';
         OverviewService
     ]
 })
+
 export class OverviewModule { }

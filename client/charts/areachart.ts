@@ -1,34 +1,34 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'barchart',
-    template: '<div class="ui segment raised" style="background-color: #f2f7ff;"><chart [options]="barChart"></chart></div>',
+    selector: 'areachart',
+    template: '<div class="ui segment raised" style="background-color: #f2f7ff;"><chart [options]="areaChart"></chart></div>',
     styles: ['chart { display: block; background-image: url("http://www.highcharts.com/samples/graphics/sand.png"); }']
 })
 
-export class BarChartComponent {
-    @Input() barChart: BarChart;
+export class AreaChartComponent {
+    @Input() areaChart: AreaChart;
 }
 
-export class BarChart {
+export class AreaChart {
 
-    public series: Array<BarChart.Series>;
+    public series: Array<AreaChart.Series>;
     public colors: string[];
-    public chart: BarChart.Chart;
-    public title: BarChart.Title;
-    public subtitle: BarChart.Subtitle;
-    public xAxis: BarChart.XAxis;
-    public yAxis: BarChart.YAxis;
-    public tooltip: BarChart.Tooltip;
-    public plotOptions: BarChart.PlotOptions;
-    public legend: BarChart.Legend;
-    public credits: BarChart.Credits;
-    public labels: BarChart.Labels;
-    public drilldown: BarChart.Drilldown;
-    public navigation: BarChart.Navigation;
-    public rangeSelector: BarChart.RangeSelector;
-    public navigator: BarChart.Navigator;
-    public scrollbar: BarChart.Scrollbar;
+    public chart: AreaChart.Chart;
+    public title: AreaChart.Title;
+    public subtitle: AreaChart.Subtitle;
+    public xAxis: AreaChart.XAxis;
+    public yAxis: AreaChart.YAxis;
+    public tooltip: AreaChart.Tooltip;
+    public plotOptions: AreaChart.PlotOptions;
+    public legend: AreaChart.Legend;
+    public credits: AreaChart.Credits;
+    public labels: AreaChart.Labels;
+    public drilldown: AreaChart.Drilldown;
+    public navigation: AreaChart.Navigation;
+    public rangeSelector: AreaChart.RangeSelector;
+    public navigator: AreaChart.Navigator;
+    public scrollbar: AreaChart.Scrollbar;
     public legendBackgroundColor: string;
     public background2: string;
     public dataLabelsColor: string;
@@ -66,7 +66,7 @@ export class BarChart {
             '#6688bb',
         ];
 
-        this.chart = new BarChart.Chart();
+        this.chart = new AreaChart.Chart();
 
         this.title = {
             text: 'simple chart',
@@ -84,11 +84,14 @@ export class BarChart {
         };
 
         this.xAxis = {
-            categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas'],
             labels: {
                 style: {
                     color: '#6e6e70'
                 }
+            },
+            crosshair: {
+                color: 'lightgrey',
+                width: 1
             },
             tickInterval: 5
         };
@@ -211,7 +214,7 @@ export class BarChart {
     }
 }
 
-export module BarChart {
+export module AreaChart {
 
     export class Series {
 
@@ -231,6 +234,7 @@ export module BarChart {
         public resetZoomButton: any;
         public backgroundColor: any;
         public style: any;
+        public zoomType: string;
 
         constructor() {
             this.setDefault();
@@ -238,8 +242,10 @@ export module BarChart {
 
         setDefault() {
 
-            this.type = 'column';
+            this.type = 'area';
             this.plotBorderColor = null;
+            this.zoomType = 'x';
+
             this.backgroundColor = {
                 linearGradient: { x1: 1, y1: 1, x2: 1, y2: 1 },
                 stops: [
@@ -250,7 +256,17 @@ export module BarChart {
 
             this.resetZoomButton = {
                 theme: {
-                    display: 'none'
+                    fill: 'white',
+                    stroke: 'silver',
+                    r: 0,
+                    states: {
+                        hover: {
+                            fill: '#41739D',
+                            style: {
+                                color: 'white'
+                            }
+                        }
+                    }
                 }
             };
 
