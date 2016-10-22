@@ -7,7 +7,8 @@ import { OverviewService } from "./overview.service";
 // charts
 import { BarChart } from '../../charts/barchart';
 import { LineChart } from '../../charts/linechart';
-import { AreaChart } from '../../charts/Areachart';
+import { AreaChart } from '../../charts/areachart';
+import { PieChart } from '../../charts/piechart';
 
 @Component({
     selector: "overview",
@@ -17,9 +18,10 @@ import { AreaChart } from '../../charts/Areachart';
 export class OverviewComponent implements OnInit {
 
     // charts options
-    private balanceChart: AreaChart;
+    private balanceChart: BarChart;
     private creditChart: LineChart;
-    private debtChart: BarChart;
+    private debtChart: AreaChart;
+    private currentDebtsPie: PieChart;
 
     constructor(private overviewService: OverviewService) {
     }
@@ -31,11 +33,11 @@ export class OverviewComponent implements OnInit {
     }
 
     getBalanceChart(){
-        this.balanceChart = new AreaChart();
+        this.balanceChart = new BarChart();
         this.overviewService.getBalanceChart()
             .subscribe(
-                    areaChart => {
-                        this.balanceChart = areaChart;
+                    barChart => {
+                        this.balanceChart = barChart;
                     },
                     error => {
                         let errorMessage: string = <any>error;
@@ -46,11 +48,12 @@ export class OverviewComponent implements OnInit {
     }
 
     getDebtChart(){
-        this.debtChart = new BarChart();
+        this.debtChart = new AreaChart();
         this.overviewService.getDebtChart()
             .subscribe(
-                    barChart => {
-                        this.debtChart = barChart;
+                    areaChart => {
+                        this.debtChart = areaChart;
+                        this.getCurrentDebtsPie(areaChart);
                     },
                     error => {
                         let errorMessage: string = <any>error;
@@ -58,6 +61,32 @@ export class OverviewComponent implements OnInit {
                             + errorMessage);
                     }
                 ); 
+    }
+
+    getCurrentDebtsPie(areaChart: AreaChart){
+        
+        this.currentDebtsPie = new PieChart();
+        
+        this.currentDebtsPie.title = {
+            text: 'Current Debts',
+            style: {
+                color: '#6e6e70',
+                fontSize: '16px',
+                fontWeight: 'bold'
+            }
+        };
+
+        let pieSeries = new PieChart.Series('Current Debts');
+        
+        areaChart.series.forEach(element => {
+            let len = element.data.length;
+            let balance = element.data[len-1];
+            pieSeries.data.push(new PieChart.Series.DataPoint(element.name, balance));
+        });
+
+        let array: Array<PieChart.Series> = new Array<PieChart.Series>();
+        array.push(pieSeries);
+        this.currentDebtsPie.series = array;
     }
 
     getCreditChart(){

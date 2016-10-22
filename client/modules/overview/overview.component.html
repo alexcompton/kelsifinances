@@ -1,4 +1,12 @@
-<areachart [areaChart]="balanceChart"></areachart>
+<!--save this for later when adding a pie chart-->
+<div class="ui grid">
+	<div class="ten wide column">
+		<areachart [areaChart]="debtChart"></areachart>
+	</div>
+	<div class="six wide column">
+		<piechart [pieChart]="currentDebtsPie"></piechart>
+	</div>
+</div>
 
 <div class="ui divider"></div>
 
@@ -6,20 +14,6 @@
 
 <div class="ui divider"></div>
 
-<barchart [barChart]="debtChart"></barchart>
+<barchart [barChart]="balanceChart"></barchart>
 
 <br/>
-
-<!--save this for later when adding a pie chart-->
-<!--<div class="ui grid">
-	<div class="twelve wide column">
-		<div class="ui segment">
-			<p></p>
-		</div>
-	</div>
-	<div class="four wide column">
-		<div class="ui segment">
-			<p></p>
-		</div>
-	</div>
-</div>-->

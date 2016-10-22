@@ -17,7 +17,7 @@ export class OverviewService {
 
     constructor(private http: Http) { }
 
-    getBalanceChart(): Observable<AreaChart> {
+    getBalanceChart(): Observable<BarChart> {
 
         let mongoUrl: string = this.getBalanceChartURL();
 
@@ -35,7 +35,7 @@ export class OverviewService {
             .catch(this.handleError);
     }
 
-    getDebtChart(): Observable<BarChart> {
+    getDebtChart(): Observable<AreaChart> {
 
         let mongoUrl: string = this.getDebtChartURL();
 
@@ -83,16 +83,16 @@ export class OverviewService {
         return mongoUrl;
     }
 
-    private extractBalanceChartData(rsp: any): AreaChart {
+    private extractBalanceChartData(rsp: any): BarChart {
 
-        let areachart = new AreaChart();
+        let barchart = new BarChart();
         let response: Array<any> = JSON.parse(rsp._body);
         let count: number = response.length;
 
         let dateArray: Array<string> = new Array<string>();
-        areachart.series = new Array<AreaChart.Series>();
-        areachart.series.push(new AreaChart.Series('Checking Account'));
-        areachart.series.push(new AreaChart.Series('Savings Account'));
+        barchart.series = new Array<BarChart.Series>();
+        barchart.series.push(new BarChart.Series('Checking Account'));
+        barchart.series.push(new BarChart.Series('Savings Account'));
 
         for (let i = 0; i < count; i++) {
 
@@ -104,101 +104,17 @@ export class OverviewService {
             let credit: number = Number(response[i].creditcardbal) * -1 || 0.0;
 
             dateArray.push(date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear());
-            areachart.series[0].data.push(check);
-            areachart.series[1].data.push(save);
+            barchart.series[0].data.push(check);
+            barchart.series[1].data.push(save);
         }
 
-        areachart.xAxis = {
+        barchart.xAxis = {
             title: {
                 text: 'Date/Time'
             },
             crosshair: {
                 color: 'lightgrey',
                 width: 1
-            },
-            categories: dateArray,
-            labels: {
-                style: {
-                    color: '#6e6e70'
-                }
-            }
-        };
-
-        areachart.plotOptions = {
-            series: {
-                shadow: true
-            },
-            candlestick: {
-                lineColor: '#404048'
-            },
-            map: {
-                shadow: false
-            },
-            column: {
-                stacking: 'normal',
-                dataLabels: {
-                    enabled: false
-                }
-            }
-        };
-
-        areachart.title = {
-            text: 'Bank Account Balance',
-            style: {
-                color: '#6e6e70',
-                fontSize: '16px',
-                fontWeight: 'bold'
-            }
-        };
-
-        areachart.yAxis = {
-            title: {
-                text: 'Total Account Balance'
-            },
-            stackLabels: {
-                enabled: false,
-                style: {
-                    fontWeight: 'bold'
-                }
-            },
-            labels: {
-                style: {
-                    color: '#6e6e70'
-                }
-            }
-        };
-
-        areachart.chart.backgroundColor = null;
-
-        return areachart;
-    }
-
-    private extractDebtChartData(rsp: any): BarChart {
-
-        let barchart = new BarChart();
-        let response: Array<any> = JSON.parse(rsp._body);
-        let count: number = response.length;
-
-        let dateArray: Array<string> = new Array<string>();
-        barchart.series = new Array<BarChart.Series>();
-        barchart.series.push(new BarChart.Series('Car Loan'));
-        barchart.series.push(new BarChart.Series('Student Loan'));
-
-        for (let i = 0; i < count; i++) {
-
-            let id: string = response[i]._id.$oid;
-            let date: Date = new Date(response[i].date.$date) || new Date(1970, 1, 1);
-            let student: number = Number(Number(response[i].studentloan).toFixed(2)) || 0.00;
-            let car: number = Number(Number(response[i].car).toFixed(2)) || 0.00;
-
-            dateArray.push(date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear());
-            barchart.series[0].data.push(car);
-            barchart.series[1].data.push(student);
-        }
-
-        barchart.xAxis = {
-            title: {
-                text: 'Date/Time'
             },
             categories: dateArray,
             labels: {
@@ -227,7 +143,7 @@ export class OverviewService {
         };
 
         barchart.title = {
-            text: 'Debts',
+            text: 'Bank Account Balance',
             style: {
                 color: '#6e6e70',
                 fontSize: '16px',
@@ -236,6 +152,90 @@ export class OverviewService {
         };
 
         barchart.yAxis = {
+            title: {
+                text: 'Total Account Balance'
+            },
+            stackLabels: {
+                enabled: false,
+                style: {
+                    fontWeight: 'bold'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#6e6e70'
+                }
+            }
+        };
+
+        barchart.chart.backgroundColor = null;
+
+        return barchart;
+    }
+
+    private extractDebtChartData(rsp: any): AreaChart {
+
+        let areachart = new AreaChart();
+        let response: Array<any> = JSON.parse(rsp._body);
+        let count: number = response.length;
+
+        let dateArray: Array<string> = new Array<string>();
+        areachart.series = new Array<AreaChart.Series>();
+        areachart.series.push(new AreaChart.Series('Car Loan'));
+        areachart.series.push(new AreaChart.Series('Student Loan'));
+
+        for (let i = 0; i < count; i++) {
+
+            let id: string = response[i]._id.$oid;
+            let date: Date = new Date(response[i].date.$date) || new Date(1970, 1, 1);
+            let student: number = Number(Number(response[i].studentloan).toFixed(2)) || 0.00;
+            let car: number = Number(Number(response[i].car).toFixed(2)) || 0.00;
+
+            dateArray.push(date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear());
+            areachart.series[0].data.push(car);
+            areachart.series[1].data.push(student);
+        }
+
+        areachart.xAxis = {
+            title: {
+                text: 'Date/Time'
+            },
+            categories: dateArray,
+            labels: {
+                style: {
+                    color: '#6e6e70'
+                }
+            }
+        };
+
+        areachart.plotOptions = {
+            series: {
+                shadow: true
+            },
+            candlestick: {
+                lineColor: '#404048'
+            },
+            map: {
+                shadow: false
+            },
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        };
+
+        areachart.title = {
+            text: 'Debts',
+            style: {
+                color: '#6e6e70',
+                fontSize: '16px',
+                fontWeight: 'bold'
+            }
+        };
+
+        areachart.yAxis = {
             title: {
                 text: 'Debt'
             },
@@ -252,7 +252,7 @@ export class OverviewService {
             }
         };
 
-        barchart.tooltip = {
+        areachart.tooltip = {
             borderWidth: 0,
             headerFormat: 'Balance on: <b>{point.x}</b><br/>',
             footerFormat: 'Total: <b>${point.total}</b><br/>',
@@ -260,9 +260,9 @@ export class OverviewService {
             valuePrefix: '$'
         };
 
-        barchart.chart.backgroundColor = null;
+        areachart.chart.backgroundColor = null;
 
-        return barchart;
+        return areachart;
     }
 
     private extractCreditChartData(rsp: any): LineChart {
